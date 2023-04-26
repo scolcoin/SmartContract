@@ -24,7 +24,7 @@ contract Acuerdo is Ownable {
     string private correo_contratante;    
     uint private celular_contratante;       
     address public Admin;
-    bytes32 [] public clausulas;
+    string private clausulas;
     uint public numClausula;
     bool private Admin_b=true;
     bool private Pro_b=true;
@@ -35,11 +35,10 @@ contract Acuerdo is Ownable {
     bool private procepro=false;
     string [] public procesos;
     uint [] private cumplimiento;
+    bytes32 public clausulas_bit;
  
  
-/* Primer Paso Informacion del Administrador del contrato debe llenar en Remix al Grabar debe suministrar: URL(Link CID -IPFS), 
-* administrador, Proveedor, Numero de Clausulas, Mensaje Key para Firmar el acuerdo.
-*/
+
     constructor(string memory url, address Administrador, address payable Proveedor,uint num_clausula, string memory menkey) onlyOwner {   
         tokenURI=url;
         Admin=Administrador;
@@ -49,9 +48,6 @@ contract Acuerdo is Ownable {
         _message = menkey;
         procesos.push("0");
         cumplimiento.push(0);
-        for (uint i = 0; i < num_clausula; i++) { 
-            clausulas.push(keccak256(abi.encodePacked("a",Admin)));
-        }
     }
 
 
@@ -102,14 +98,11 @@ contract Acuerdo is Ownable {
         }       
     } 
 
-    function Clausulas(uint num, string memory Clausula) public onlyOwner{
-        if(clausulas[num]!=""){
-            clausulas.push(keccak256(abi.encodePacked(Clausula,Admin)));
-        }
+    function Clausulas(string memory Clausula) public onlyOwner{
         
-        if(num <= numClausula){    
-            clausulas[num]=keccak256(abi.encodePacked(Clausula,Admin));          
-            }
+            clausulas=Clausula;
+            clausulas_bit=keccak256(abi.encodePacked(Clausula,Admin));          
+            
 
     }
 
@@ -119,19 +112,17 @@ contract Acuerdo is Ownable {
     }
 
     // verificador
-    function allClausulas(uint num, string memory Clausula) public view returns (bool Confirmar) {
+    function allClausulas( string memory Clausula) public view returns (bool Verificacion, string memory Texto) {
     bool Confir=false;
     bytes32 compara=keccak256(abi.encodePacked(Clausula,Admin));
-    //for (uint i = 0; i < numero_clausula; i++) {  
+   
     // encriptamos
-    if(num==0){
-        num++;
-    }
-    if(clausulas[num]==compara){
+
+    if(clausulas_bit==compara){
         Confir=true;
     }
 
-    return (Confir);
+    return (Confir, clausulas);
     } 
 
     function Firma_admin(string memory key) public view returns (bytes32 F) {
@@ -220,8 +211,9 @@ contract Acuerdo is Ownable {
 
    // El smart contract se compone de dos partes, el contrato redactado en lenguaje natural y es el que debemos de tener de forma previa para evitar problemas y amacenado en un Uri en IPFS, y la parte digital, que no es un contrato en sí, sino una programación informática basada en las condiciones del contrato legal (STS, 31 marzo de 2011, nº 217/2011) Link texto: https://evahernandezramos.com/smart-contract-que-requisitos-tiene-que-tener/
 
-   /*
+    /*
     * Marco Legal Colombia - Ley 527 de 1999
     */
    // https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=4276
+   
 }
