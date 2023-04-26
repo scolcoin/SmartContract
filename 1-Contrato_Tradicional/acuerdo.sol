@@ -37,7 +37,7 @@ contract Acuerdo is Ownable {
     uint [] private cumplimiento;
  
  
-// Primer Paso Informacion del Administrador del contrato debe llenar 
+// Primer Paso Informacion del Administrador del contrato debe llenar en Remix al Grabar debe suministrar: URL(Link CID -IPFS), administrador, Proveedor, Numero de Clausulas, Mensaje Key para Firmar el acuerdo.
     constructor(string memory url, address Administrador, address payable Proveedor,uint num_clausula, string memory menkey) onlyOwner {   
         tokenURI=url;
         Admin=Administrador;
