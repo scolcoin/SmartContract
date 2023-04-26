@@ -2,7 +2,7 @@
 El archivo acuerdo.sol esta basado en un documento tradicional que incluso tiene la opcion para cargar el Uri de IPFS para que este la constancia escaneada nunca mas volveras a una notaria.
 
 ## Acuerdo Tradicional:
-Variables iniciales en constructor:
+Variables iniciales en constructor con Autenticidad:
 
 - Partes: admin(Owner) Funcion Contratante()
 - Proveedor Pro, Funcion Contratista ().
