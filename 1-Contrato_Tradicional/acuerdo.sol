@@ -25,7 +25,6 @@ contract Acuerdo is Ownable {
     uint private celular_contratante;       
     address public Admin;
     string private clausulas;
-    uint public numClausula;
     bool private Admin_b=true;
     bool private Pro_b=true;
     address payable public Pro;
@@ -35,16 +34,14 @@ contract Acuerdo is Ownable {
     bool private procepro=false;
     string [] public procesos;
     uint [] private cumplimiento;
-    bytes32 public clausulas_bit;
+    bytes32 private clausulas_bit;
  
  
 
-    constructor(string memory url, address Administrador, address payable Proveedor,uint num_clausula, string memory menkey) onlyOwner {   
+    constructor(string memory url, address Administrador, address payable Proveedor, string memory menkey) onlyOwner {   
         tokenURI=url;
         Admin=Administrador;
         Pro=Proveedor;
-        numClausula=num_clausula;
-        num_clausula++;
         _message = menkey;
         procesos.push("0");
         cumplimiento.push(0);
@@ -98,12 +95,9 @@ contract Acuerdo is Ownable {
         }       
     } 
 
-    function Clausulas(string memory Clausula) public onlyOwner{
-        
-            clausulas=Clausula;
-            clausulas_bit=keccak256(abi.encodePacked(Clausula,Admin));          
-            
-
+    function Clausulas(string memory Acuerdos) public onlyOwner{  
+            clausulas=Acuerdos;
+            clausulas_bit=keccak256(abi.encodePacked(clausulas,Admin));    
     }
 
     function Traza (string memory Traz) public onlyOwner{ 
@@ -124,6 +118,12 @@ contract Acuerdo is Ownable {
 
     return (Confir, clausulas);
     } 
+
+       function Hash() public view returns (bytes32 F) {
+        if(msg.sender==Admin || msg.sender==Pro){
+            return (clausulas_bit);        
+        }
+    }
 
     function Firma_admin(string memory key) public view returns (bytes32 F) {
         if(msg.sender==Admin && Admin_b==true){
