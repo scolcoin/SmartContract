@@ -37,7 +37,7 @@ contract Acuerdo is Ownable {
     uint [] private cumplimiento;
  
  
-
+// Primer Paso Informacion del Administrador del contrato debe llenar 
     constructor(string memory url, address Administrador, address payable Proveedor,uint num_clausula, string memory menkey) onlyOwner {   
         tokenURI=url;
         Admin=Administrador;
