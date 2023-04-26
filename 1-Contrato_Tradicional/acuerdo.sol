@@ -35,7 +35,7 @@ contract Acuerdo is Ownable {
     string [] public procesos;
     uint [] private cumplimiento;
     bytes32 private clausulas_bit;
-    bool private leyretrato=false;
+    bool private leyretracto=false;
     bool public ley_Admin=false;
     bool public ley_Pro=false;
  
@@ -55,10 +55,10 @@ contract Acuerdo is Ownable {
     
 
     function Retiro() public returns (bool Confirmar){
-        //verificamos si hay ley de retrato:
+        //verificamos si hay ley de retracto:
         if(ley_Admin==true && ley_Pro==true){
-            leyretrato=true;
-                if(msg.sender==Pro && leyretrato==true){ // el Proveedor es el que ejecuta el retiro por ley de Retrato
+            leyretracto=true;
+                if(msg.sender==Pro && leyretracto==true){ // el Proveedor es el que ejecuta el retiro por ley de retracto
                 uint total = address(this).balance;
                 (bool success, ) = Admin.call{value: total}("");
                 require(success, "Failed to send Ether");
