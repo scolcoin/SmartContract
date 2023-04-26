@@ -10,29 +10,22 @@ Variables iniciales en constructor:
 ## Datos Generales de un Acuerdo Tradicional:
 1- OBJETO.
 
-2- VALOR Y PAGO.
+2 -Consentimiento
 
-3- ADMINISTRACIÓN.
+3- Sujetos.
 
 4- OBLIGACIONES DEL CONTRATISTA
 
 5- OBLIGACIONES DEL CONTRATANTE
 
-6- DURACIÓN / TIEMPO DE ENTREGA
-
-7- TERMINACIÓN
-
-8-CESIÓN
-
-9-PERFECCIONAMIENTO Y EJECUCIÓN
+6- TERMINACIÓN 
 
 Agrupado en Funcion Clausulas() el Owner debe configurarlas inicialmente y cada una basado del documento fisico, al ingresar a la blockchain y por seguridad se encripta, la unica forma de confirmar es enviando en la funcion: allClausulas() 
 
 ## Otras Herramientas Importantes para poder llevar el seguimiento:
-- Trazabilidad
 - Firma
-- Verificacion
-- Procesos
+- Verificacion Firma
+- Trazabilidad de los Procesos
 - Auditoria
 - Ejecucion
 - Pago
