@@ -21,12 +21,12 @@ Variables iniciales en constructor:
 Agrupado en Funcion Clausulas() el Owner debe configurarlas inicialmente y cada una basado del documento fisico, al ingresar a la blockchain y por seguridad se encripta, la unica forma de confirmar es enviando en la funcion: allClausulas() 
 
 ## Otras Herramientas Importantes para poder llevar el seguimiento:
-- Firma
-- Verificacion Firma
-- Trazabilidad de los Procesos
-- Auditoria
-- Ejecucion
-- Pago
+- Firma.
+- No repudio firma digital.
+- Trazabilidad de los Procesos.
+- Auditoria.
+- Ejecucion.
+- Pago.
 
 # Instrucciones:
 en el codigo encontraras con // y el numero del proceso.
