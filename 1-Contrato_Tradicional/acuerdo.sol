@@ -219,7 +219,7 @@ contract Acuerdo is Ownable {
    // El smart contract se compone de dos partes, el contrato redactado en lenguaje natural y es el que debemos de tener de forma previa para evitar problemas y amacenado en un Uri en IPFS, y la parte digital, que no es un contrato en sí, sino una programación informática basada en las condiciones del contrato legal (STS, 31 marzo de 2011, nº 217/2011) Link texto: https://evahernandezramos.com/smart-contract-que-requisitos-tiene-que-tener/
 
    /*
-    * Marco Legal Colombia
+    * Marco Legal Colombia - Ley 527 de 1999
     */
-   // https://www.notinetlegal.com/cmo-podran-regularse-los-smart-contracts-o-contratos-inteligentes-en-colombia-792.html
+   // https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=4276
 }
