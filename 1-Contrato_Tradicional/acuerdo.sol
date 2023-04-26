@@ -58,7 +58,7 @@ contract Acuerdo is Ownable {
         //verificamos si hay ley de retrato:
         if(ley_Admin==true && ley_Pro==true){
             leyretrato=true;
-                if(msg.sender==Admin && leyretrato==true){
+                if(msg.sender==Pro && leyretrato==true){ // el Proveedor es el que ejecuta el retiro por ley de Retrato
                 uint total = address(this).balance;
                 (bool success, ) = Admin.call{value: total}("");
                 require(success, "Failed to send Ether");
