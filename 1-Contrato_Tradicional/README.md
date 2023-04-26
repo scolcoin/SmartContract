@@ -8,17 +8,11 @@ Variables iniciales en constructor:
 - Proveedor Pro, Funcion Contratista ().
 
 ## Datos Generales de un Acuerdo Tradicional:
-1- OBJETO.
-
-2 -Consentimiento
-
-3- Sujetos.
-
-4- OBLIGACIONES DEL CONTRATISTA
-
-5- OBLIGACIONES DEL CONTRATANTE
-
-6- TERMINACIÓN 
+1 - OBJETO.
+2 - SUJETO CONTRACTUALES
+3 - CONSENTIMIENTO
+4 - PERFECCIONAMIENTO DE EJECUCIÓN
+5 - TERMINACIÓN
 
 Agrupado en Funcion Clausulas() el Owner debe configurarlas inicialmente y cada una basado del documento fisico, al ingresar a la blockchain y por seguridad se encripta, la unica forma de confirmar es enviando en la funcion: allClausulas() 
 
