@@ -1,5 +1,5 @@
 # Descripción
-El archivo acuerdo.sol esta basado en un documento tradicional que incluso tiene la opcion para cargar el Uri de IPFS para que este la constancia escaneada nunca mas volveras a una notaria.
+El archivo acuerdo.sol Prestacion de Servicios, basado en un documento tradicional que incluso tiene la opcion para cargar el Uri de IPFS para que este la constancia escaneada nunca mas volveras a una notaria.
 
 ### Cumpliendo con la trazabilidad digital y autenticidad de la Ley 527 de 1999 de Republica de Colombia.
 
@@ -33,4 +33,5 @@ Agrupado en Funcion Clausulas() el Owner debe configurarlas inicialmente y cada 
 # Instrucciones:
 en el codigo encontraras con // y el numero del proceso.
 
-1- El Creador es el Admin y Owner, debe seguir estas recomendaciones en el momento de almacenar la informacion en Remix debe suministrar: 
+1- El Creador es el Admin y Owner, debe seguir estas recomendaciones en el momento de almacenar la informacion en Remix debe suministrar: URL(Link CID -IPFS), administrador, Proveedor, Numero de Clausulas, Mensaje Key que deben tener los dos usuarios que desean realizar el acuerdo.
+
