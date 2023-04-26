@@ -35,6 +35,9 @@ contract Acuerdo is Ownable {
     string [] public procesos;
     uint [] private cumplimiento;
     bytes32 private clausulas_bit;
+    bool private leyretrato=false;
+    bool public ley_Admin=false;
+    bool public ley_Pro=false;
  
  
 
@@ -48,23 +51,49 @@ contract Acuerdo is Ownable {
     }
 
 
-    function deposito() public payable {}
+    function Deposito() public payable {}
     
 
-    function withdraw() public returns (bool Confirmar){
-        if(msg.sender==Admin && Auto==true){
-        // get the amount of Ether stored in this contract
-        uint total = address(this).balance;
- 
-        // send all Ether to owner
-        // Owner can receive Ether since the address of owner is payable
-        (bool success, ) = Pro.call{value: total}("");
-        require(success, "Failed to send Ether");
-        return(true);        
+    function Retiro() public returns (bool Confirmar){
+        //verificamos si hay ley de retrato:
+        if(ley_Admin==true && ley_Pro==true){
+            leyretrato=true;
+                if(msg.sender==Admin && leyretrato==true){
+                uint total = address(this).balance;
+                (bool success, ) = Admin.call{value: total}("");
+                require(success, "Failed to send Ether");
+                return(true);
+                }
+        }else{
+        
+                if(msg.sender==Admin && Auto==true){
+                // get the amount of Ether stored in this contract
+                uint total = address(this).balance;
+        
+                // send all Ether to owner
+                // Owner can receive Ether since the address of owner is payable
+                (bool success, ) = Pro.call{value: total}("");
+                require(success, "Failed to send Ether");
+                return(true);        
+                }
+                else{
+                    require(Auto, "No esta Autorizado"); 
+                    return(false);}    
         }
-        else{
-            require(Auto, "No esta Autorizado"); 
-            return(false);}
+    }
+     
+
+    function LeyRetiro() public returns (bool respuesta){
+        if(msg.sender==Admin){
+        ley_Admin=true;
+        return(true);
+        }
+        if(msg.sender==Pro){
+        ley_Pro=true;
+        return(true);
+        }    
+        return(false);
+        
     }
 
     function Contratista(string memory nombre, uint ccoNit, string memory nacionalidad, string memory direccion, string memory pais, string memory ciudad, string memory email, uint celular) public returns (bool Confirmar) {
@@ -106,7 +135,7 @@ contract Acuerdo is Ownable {
     }
 
     // verificador
-    function allClausulas( string memory Clausula) public view returns (bool Verificacion, string memory Texto) {
+    function AllClausulas( string memory Clausula) public view returns (bool Verificacion, string memory Texto) {
     bool Confir=false;
     bytes32 compara=keccak256(abi.encodePacked(Clausula,Admin));
    
@@ -148,7 +177,7 @@ contract Acuerdo is Ownable {
 
  
 
-    function verify(bytes32 Firma) public view returns (bool) {
+    function Verify(bytes32 Firma) public view returns (bool) {
 
         if(msg.sender==Admin && Admin_b==false){
             address _to = Pro;
