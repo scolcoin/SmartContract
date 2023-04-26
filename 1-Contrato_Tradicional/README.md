@@ -44,3 +44,6 @@ Agrupado en Funcion Clausulas() el Owner debe configurarlas inicialmente y cada 
 - Pago
 
 # Instrucciones:
+en el codigo encontraras con // y el numero del proceso.
+
+1- El Creador es el Admin y Owner, debe seguir estas recomendaciones en el momento de almacenar la informacion en Remix debe suministrar: 
