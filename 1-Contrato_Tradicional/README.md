@@ -33,5 +33,5 @@ Agrupado en Funcion Clausulas() el Owner debe configurarlas inicialmente y cada 
 # Instrucciones:
 en el codigo encontraras con // y el numero del proceso.
 
-1- El Creador es el Admin y Owner, debe seguir estas recomendaciones en el momento de almacenar la informacion en Remix debe suministrar: URL(Link CID -IPFS), administrador, Proveedor, Numero de Clausulas, Mensaje Key que deben tener los dos usuarios que desean realizar el acuerdo.
+1- El Creador es el Admin y Owner, debe seguir estas recomendaciones en el momento de almacenar la informacion en Remix debe suministrar: URL(Link CID -IPFS), administrador, Proveedor, Numero de Clausulas, Mensaje Key para Firmar el acuerdo.
 
