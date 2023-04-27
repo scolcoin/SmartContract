@@ -1,5 +1,4 @@
 /**
-
 @dev Acuerdo - Contrato inteligente para gestionar un acuerdo entre dos partes.
 Este contrato incluye un proceso de retiro en caso de ley de retracto, y la capacidad de
 verificar cláusulas y agregar trazas de proceso.
@@ -63,7 +62,7 @@ contract Acuerdo is Ownable {
         procesos.push("0");
         cumplimiento.push(0);
     }
-
+ 
 
 /**
  * @dev Deposita Scolcoin SRC-20 en el contrato.
@@ -257,11 +256,24 @@ contract Acuerdo is Ownable {
 
   }
 
-   /*
-    * Nota: Marco Legal Internacional del Smart Contract
-    */
+  /**
+* @dev Exportar obtiene documento y texto todos los datos almacenados
+*/
 
-   // El smart contract se compone de dos partes, el contrato redactado en lenguaje natural y es el que debemos de tener de forma previa para evitar problemas y amacenado en un Uri en IPFS, y la parte digital, que no es un contrato en sí, sino una programación informática basada en las condiciones del contrato legal (STS, 31 marzo de 2011, nº 217/2011) Link texto: https://evahernandezramos.com/smart-contract-que-requisitos-tiene-que-tener/
+    function Exportar() public view returns (
+        string memory Link,
+        string memory Documento,
+        //Contratante
+        string memory Nombre_Contratante,
+        uint CCoNIT_Contratante,
+        //Contratista
+        string memory Nombre_Contratista,
+        uint CCoNIT_Contratista
+        ){
+        if(ley_Admin==true && ley_Pro==true){
+        return (tokenURI,clausulas,nombre_contratista,cconit_contratante,nombre_contratista,cconit_contratista);
+        }
+    }
 
     /*
     * Marco Legal Colombia - Ley 527 de 1999
