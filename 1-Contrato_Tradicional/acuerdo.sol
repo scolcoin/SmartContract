@@ -1,10 +1,10 @@
 /**
+
 @dev Acuerdo - Contrato inteligente para gestionar un acuerdo entre dos partes.
 Este contrato incluye un proceso de retiro en caso de ley de retracto, y la capacidad de
 verificar cláusulas y agregar trazas de proceso.
 @custom:security-contact scolcoin@gmail.com
 */
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
@@ -13,38 +13,38 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /// @custom:security-contact scolcoin@gmail.com
 contract Acuerdo is Ownable {
     // Variables para almacenar información del contratista y contratante
-    string  private tokenURI;
+    string private tokenURI;
     uint private cconit_contratista;
     string private nombre_contratista;
     string private direccion_contratista;
     string private nacionalidad_contratista;
     string private pais_contratista;
-    string private ciudad_contratista;    
+    string private ciudad_contratista;
     string private correo_contratista;
-    uint private celular_contratista;            
+    uint private celular_contratista;
     uint private cconit_contratante;
     string private nombre_contratante;
-    string private direccion_contratante; 
+    string private direccion_contratante;
     string private nacionalidad_contratante;
-    string private ciudad_contratante;    
-    string private pais_contratante;    
-    string private correo_contratante;    
-    uint private celular_contratante;       
+    string private ciudad_contratante;
+    string private pais_contratante;
+    string private correo_contratante;
+    uint private celular_contratante;
     address public Admin;
     string private clausulas;
-    bool private Admin_b=true;
-    bool private Pro_b=true;
+    bool private Admin_b = true;
+    bool private Pro_b = true;
     address payable public Pro;
-    bool private Auto=false;
-    string private _message;  
-    bool private proceadmin=false;
-    bool private procepro=false;
-    string [] public procesos;
-    uint [] private cumplimiento;
+    bool private Auto = false;
+    string private _message;
+    bool private proceadmin = false;
+    bool private procepro = false;
+    string[] public procesos;
+    uint[] private cumplimiento;
     bytes32 private clausulas_bit;
-    bool private leyretracto=false;
-    bool public ley_Admin=false;
-    bool public ley_Pro=false;
+    bool private leyretracto = false;
+    bool public ley_Admin = false;
+    bool public ley_Pro = false;
  
  /**
  * @dev Crea una nueva instancia del contrato Acuerdo. 
