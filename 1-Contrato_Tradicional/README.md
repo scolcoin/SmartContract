@@ -38,6 +38,19 @@ Agrupado en Funcion Clausulas() el Owner debe configurarlas inicialmente y cada 
 - Ejecucion.
 - Pago.
 
+## Ejemplo
+A continuación se presenta un ejemplo de cómo se puede utilizar este contrato inteligente:
+
+Supongamos que Ana y Juan quieren establecer un acuerdo para la compra de un automóvil. Ana será el contratista y Juan el contratante. Ambos acuerdan que si ocurre una ley de retracto, se hará un retiro de Scolcoin SRC-20. También acuerdan que la dirección del proveedor será "0x123456789" y la dirección del administrador será "0x987654321".
+
+Ana y Juan firman el acuerdo y depositan una cantidad de Scolcoin SRC-20 en el contrato inteligente. El acuerdo se establece como "En proceso".
+
+Después de un tiempo, Ana decide que ya no quiere comprar el automóvil y desea retirar su depósito. Ana invoca la función LeyRetiro y establece el valor de RetractoAna en true. Juan también invoca la función LeyRetiro y establece el valor de RetractoJuan en true. Debido a que ambas partes han invocado la ley de retracto, se ejecuta la función Retirar y se realiza el retiro de Scolcoin SRC-20.
+
+Si Ana no hubiera invocado la función LeyRetiro y quisiera retirar su depósito, tendría que invocar la función Retirar desde la cuenta del Administrador y establecer el valor de Auto en false.
+
+En resumen, este contrato inteligente en Solidity permite gestionar acuerdos entre dos partes de manera segura y eficiente, con la posibilidad de hacer retiros en caso de ley de retracto y verificar clausulas
+
 # Instrucciones:
 en el codigo encontraras con // y el numero del proceso.
 
