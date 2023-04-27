@@ -1,4 +1,5 @@
 /**
+
 @dev Acuerdo - Contrato inteligente para gestionar un acuerdo entre dos partes.
 Este contrato incluye un proceso de retiro en caso de ley de retracto, y la capacidad de
 verificar cláusulas y agregar trazas de proceso.
@@ -13,22 +14,28 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Acuerdo is Ownable {
     // Variables para almacenar información del contratista y contratante
     string private tokenURI;
-    uint private cconit_contratista;
-    string private nombre_contratista;
-    string private direccion_contratista;
-    string private nacionalidad_contratista;
-    string private pais_contratista;
-    string private ciudad_contratista;
-    string private correo_contratista;
-    uint private celular_contratista;
-    uint private cconit_contratante;
-    string private nombre_contratante;
-    string private direccion_contratante;
-    string private nacionalidad_contratante;
-    string private ciudad_contratante;
-    string private pais_contratante;
-    string private correo_contratante;
-    uint private celular_contratante;
+    struct Contratista { 
+        string nombre_contratista;
+        uint cconit_contratista;
+        string direccion_contratista;
+        string nacionalidad_contratista;
+        string pais_contratista;
+        string ciudad_contratista;
+        string correo_contratista;
+        uint celular_contratista;
+    }
+    Contratista contratista;
+    struct Contratante { 
+        string nombre_contratante;
+        uint cconit_contratante;
+        string direccion_contratante;
+        string nacionalidad_contratante;
+        string ciudad_contratante;
+        string pais_contratante;
+        string correo_contratante;
+        uint celular_contratante;
+    }
+    Contratante contratante;
     address public Admin;
     string private clausulas;
     bool private Admin_b = true;
@@ -118,30 +125,16 @@ contract Acuerdo is Ownable {
         
     }
 
-    function Contratista(string memory nombre, uint ccoNit, string memory nacionalidad, string memory direccion, string memory pais, string memory ciudad, string memory email, uint celular) public returns (bool Confirmar) {
-        if(msg.sender==Admin && Admin_b==true){
-            nombre_contratista=nombre;
-            cconit_contratista=ccoNit;
-            direccion_contratista=direccion;
-            nacionalidad_contratista=nacionalidad;
-            pais_contratista=pais;
-            ciudad_contratista=ciudad;
-            correo_contratista=email;
-            celular_contratista=celular;
+    function Contratista_dat(string memory nombre, uint ccoNit, string memory nacionalidad, string memory direccion, string memory pais, string memory ciudad, string memory email, uint celular) public returns (bool Confirmar) {
+        if(msg.sender==Pro && Admin_b==true){
+           contratista = Contratista(nombre, ccoNit, direccion,nacionalidad,pais,ciudad,email,celular);
             return(true);
         }        
     }  
 
-    function Contratante(string memory Nombre, uint CCoNit, string memory Nacionalidad, string memory Direccion, string memory Pais, string memory Ciudad, string memory Email, uint Celular) public returns (bool Confirmar){
-        if(msg.sender==Pro && Pro_b==true){
-            cconit_contratante=CCoNit;
-            nombre_contratante=Nombre;
-            direccion_contratante=Direccion; 
-            nacionalidad_contratante=Nacionalidad;
-            ciudad_contratante=Ciudad;    
-            pais_contratante=Pais;    
-            correo_contratante=Email;    
-            celular_contratante=Celular; 
+    function Contratante_dat(string memory Nombre, uint CCoNit, string memory Nacionalidad, string memory Direccion, string memory Pais, string memory Ciudad, string memory Email, uint Celular) public returns (bool Confirmar){
+        if(msg.sender==Admin && Pro_b==true){
+            contratante=Contratante(Nombre,CCoNit,Direccion,Nacionalidad,Ciudad,Pais,Email,Celular); 
             return(true);
         }       
     } 
@@ -261,20 +254,62 @@ contract Acuerdo is Ownable {
 */
 
     function Exportar() public view returns (
-        string memory Link,
-        string memory Documento,
-        //Contratante
         string memory Nombre_Contratante,
         uint CCoNIT_Contratante,
         //Contratista
         string memory Nombre_Contratista,
-        uint CCoNIT_Contratista
+        uint CCoNIT_Contratista,        
+        string memory Link,
+        string memory Documento
         ){
-        if(ley_Admin==true && ley_Pro==true){
-        return (tokenURI,clausulas,nombre_contratista,cconit_contratante,nombre_contratista,cconit_contratista);
+        if(msg.sender==Admin || msg.sender==Pro){
+        return (contratante.nombre_contratante,contratante.cconit_contratante,contratista.nombre_contratista, contratista.cconit_contratista,tokenURI, clausulas);
         }
     }
 
+    function Datos_admin() public view returns (
+        string memory Nombre,
+        uint CCoNIT,
+        string memory Direccion,
+        string memory Nacionalidad,
+        string memory Pais,
+        string memory Ciudad,
+        string memory Email,
+        uint Celular
+        ){
+        if(msg.sender==Admin || msg.sender==Pro){
+        return (contratante.nombre_contratante,
+                contratante.cconit_contratante,
+                contratante.direccion_contratante,
+                contratante.nacionalidad_contratante,
+                contratante.ciudad_contratante,
+                contratante.pais_contratante,
+                contratante.correo_contratante,
+                contratante.celular_contratante);
+        }
+    }
+
+    function Datos_Pro() public view returns (
+        string memory Nombre,
+        uint CCoNIT,
+        string memory Direccion,
+        string memory Nacionalidad,
+        string memory Pais,
+        string memory Ciudad,
+        string memory Email,
+        uint Celular       
+        ){
+        if(msg.sender==Admin || msg.sender==Pro){
+        return (contratista.nombre_contratista,
+                contratista.cconit_contratista,
+                contratista.direccion_contratista,
+                contratista.nacionalidad_contratista,
+                contratista.pais_contratista,
+                contratista.ciudad_contratista,
+                contratista.correo_contratista,
+                contratista.celular_contratista);
+        }
+    }
     /*
     * Marco Legal Colombia - Ley 527 de 1999
     */
