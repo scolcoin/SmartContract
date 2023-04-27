@@ -1,3 +1,10 @@
+/**
+@dev Acuerdo - Contrato inteligente para gestionar un acuerdo entre dos partes.
+Este contrato incluye un proceso de retiro en caso de ley de retracto, y la capacidad de
+verificar cláusulas y agregar trazas de proceso.
+@custom:security-contact scolcoin@gmail.com
+*/
+
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
@@ -5,7 +12,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @custom:security-contact scolcoin@gmail.com
 contract Acuerdo is Ownable {
-    //variables
+    // Variables para almacenar información del contratista y contratante
     string  private tokenURI;
     uint private cconit_contratista;
     string private nombre_contratista;
@@ -39,7 +46,14 @@ contract Acuerdo is Ownable {
     bool public ley_Admin=false;
     bool public ley_Pro=false;
  
- 
+ /**
+ * @dev Crea una nueva instancia del contrato Acuerdo. 
+ * 
+ * @param url URL del tokenURI
+ * @param Administrador Dirección de la cuenta del administrador
+ * @param Proveedor Dirección de la cuenta del proveedor
+ * @param menkey Mensaje de clave
+ */
 
     constructor(string memory url, address Administrador, address payable Proveedor, string memory menkey) onlyOwner {   
         tokenURI=url;
@@ -51,9 +65,18 @@ contract Acuerdo is Ownable {
     }
 
 
+/**
+ * @dev Deposita Scolcoin SRC-20 en el contrato.
+ */
     function Deposito() public payable {}
     
-
+/**
+ * @dev Ejecuta el retiro de Scolcoin SRC-20 según el caso.
+ * Si se ha invocado LeyRetiro por ambas partes, se ejecuta el retiro por ley de retracto.
+ * Si no se ha invocado LeyRetiro, se requiere que la cuenta del remitente sea la cuenta del Administrador.
+ * Si Auto es falso, devuelve false. 
+ */
+ 
     function Retiro() public returns (bool Confirmar){
         //verificamos si hay ley de retracto:
         if(ley_Admin==true && ley_Pro==true){
