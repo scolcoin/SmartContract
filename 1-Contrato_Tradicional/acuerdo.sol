@@ -241,7 +241,7 @@ contract Acuerdo is Ownable {
   }
 
   function Ejecucion () public view returns (bool){
-      if(msg.sender==Admin && Admin_b==false){
+      if(msg.sender==Admin){
       Auto==true;
       return (true);
       }
