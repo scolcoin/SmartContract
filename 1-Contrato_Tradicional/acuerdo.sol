@@ -235,13 +235,13 @@ contract Acuerdo is Ownable {
       }
   }
   
-  function Auditoria (uint num_t) public view returns (string memory Proceso, uint Resultado){
+  function Auditoria (uint num_t) public returns (string memory Proceso, uint Resultado){
       // trae proceso y Resultado
     return(procesos[num_t],cumplimiento[num_t]);
   }
 
   function Ejecucion () public view returns (bool){
-      if(msg.sender==Admin && Admin_b==false){
+      if(msg.sender==Admin){
       Auto==true;
       return (true);
       }
