@@ -169,19 +169,19 @@ contract Acuerdo is Ownable {
         }
     }
 
-    function Firma_admin(string memory key) public view returns (bytes32 F) {
+    function Firma_admin(string memory key) public returns (bytes32 F) {
         if(msg.sender==Admin && Admin_b==true){
             address _to = Pro;
             uint _amount=1; 
             uint    _nonce=1;
-            Admin_b==false;
+            Admin_b=false;
             return keccak256(abi.encodePacked(_to, _amount, key, _nonce));        
         }
     }
 
-    function Firma_Provee(string memory keypro) public view returns (bytes32 F) {
+    function Firma_Provee(string memory keypro) public returns (bytes32 F) {
         if(msg.sender==Pro && Pro_b==true){
-        Pro_b==false;
+        Pro_b=false;
             address _to = Pro;
             uint _amount=1;
 
