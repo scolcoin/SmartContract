@@ -240,9 +240,9 @@ contract Acuerdo is Ownable {
     return(procesos[num_t],cumplimiento[num_t]);
   }
 
-  function Ejecucion () public view returns (bool){
+  function Ejecucion () public returns (bool){
       if(msg.sender==Admin){
-      Auto==true;
+      Auto=true;
       return (true);
       }
       return (false);
