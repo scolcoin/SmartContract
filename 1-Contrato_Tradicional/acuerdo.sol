@@ -194,7 +194,7 @@ contract Acuerdo is Ownable {
 
     function Verify(bytes32 Firma) public view returns (bool) {
 
-        if(msg.sender==Admin && Admin_b==false){
+        if(msg.sender==Admin) {
             address _to = Pro;
             uint _amount=1;          
             uint    _nonce=1;
@@ -204,7 +204,7 @@ contract Acuerdo is Ownable {
                         return(true);
                     }       
         }
-        if(msg.sender==Pro && Pro_b==false){
+        if(msg.sender==Pro){
             address _to = Pro;
             uint _amount=1;
             uint    _nonce=1;
@@ -241,7 +241,7 @@ contract Acuerdo is Ownable {
   }
 
   function Ejecucion () public view returns (bool){
-      if(msg.sender==Admin){
+      if(msg.sender==Admin && Admin_b==false){
       Auto==true;
       return (true);
       }
