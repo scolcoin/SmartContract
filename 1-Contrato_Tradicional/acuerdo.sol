@@ -235,7 +235,7 @@ contract Acuerdo is Ownable {
       }
   }
   
-  function Auditoria (uint num_t) public returns (string memory Proceso, uint Resultado){
+  function Auditoria (uint num_t) public view returns (string memory Proceso, uint Resultado){
       // trae proceso y Resultado
     return(procesos[num_t],cumplimiento[num_t]);
   }
