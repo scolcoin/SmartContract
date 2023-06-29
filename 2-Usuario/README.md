@@ -6,16 +6,16 @@ El contrato utiliza la versión de Solidity ^0.8.0 y tiene una optimización est
 
 ### Struct "User": Representa a un usuario y contiene los siguientes campos:
 
-"id": Identificador único del usuario.
-"nombre": Nombre del usuario.
-"ccoNit": Número de identificación ciudadana o NIT del usuario.
-"email": Dirección de correo electrónico del usuario.
-"indicativo": Indicativo del país del usuario.
-"celular": Número de celular del usuario.
-"nickname": Nombre de usuario del usuario.
-"wallet": Dirección de la billetera del usuario.
-"wallet_vps": Dirección de la billetera VPS del usuario.
-"user_auto": Indicador de autorización del usuario.
+* "id": Identificador único del usuario.
+* "nombre": Nombre del usuario.
+* "ccoNit": Número de identificación ciudadana o NIT del usuario.
+* "email": Dirección de correo electrónico del usuario.
+* "indicativo": Indicativo del país del usuario.
+* "celular": Número de celular del usuario.
+* "nickname": Nombre de usuario del usuario.
+* "wallet": Dirección de la billetera del usuario.
+* "wallet_vps": Dirección de la billetera VPS del usuario.
+* "user_auto": Indicador de autorización del usuario.
 
 ### Struct "VPS": Representa un VPS autorizado y contiene los siguientes campos:
 
@@ -29,3 +29,5 @@ El contrato también incluye dos listas privadas: "users" y "vpsList". Estas lis
 El contrato tiene una función constructora que se ejecuta al desplegar el contrato y es accesible solo por el propietario del contrato (función "onlyOwner"). No se realiza ninguna operación dentro de la función constructora en este caso.
 
 El contrato incluye varias funciones públicas para interactuar con los usuarios y los VPS. Algunas de las funciones principales son las siguientes:
+* function AddUser: Permite agregar un nuevo usuario a la lista de usuarios. Se deben proporcionar los datos del usuario como parámetros, incluyendo el nombre, el ccoNit, el email, el indicativo, el celular, el nickname y la dirección de la billetera. Antes de agregar al usuario, se realizan varias validaciones para asegurar que los datos sean correctos y únicos.
+* 
