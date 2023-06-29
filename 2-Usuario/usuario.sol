@@ -55,7 +55,7 @@ contract Usuarios is Ownable {
     }
 
 
-    function addUser(
+    function AddUser(
         string memory _nombre,
         uint _ccoNit,
         string memory _email,
@@ -455,6 +455,17 @@ function m_usu_cc(uint _ccoNit, address _newWalletVPS) private {
 
         users[nvid].user_auto = _permiso;
     }
+
+   // ver VPS
+      function id_VPS(  
+        address wallet
+        ) public view returns (
+            uint id
+            ) {
+               id=findUVPS(wallet);  
+               return(id);
+            }
+
 
     // ver datos solo los VPS
     function Consulta_VPS(  
