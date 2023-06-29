@@ -2,7 +2,7 @@ Desarrollo Empresa: BLOCKCHAIN TECHNOLOGY SOLUTIONS AND ARTIFICIAL INTELLIGENCE 
 
 __Nota:__ Este contrato es una continuacion del modelo usuario universal 2-Usuario.
 
-_Version 1.0 lanzamiento 29/06/2023 contrato 0x en la red Mainnet_
+_Version 1.0 lanzamiento 29/06/2023 contrato 0x9c6311b7F3636f5d9354fFf519baD50080747d41 en la red Mainnet_
 
 
 El contrato "Wallets" es un contrato inteligente diseñado para gestionar las wallets de los usuarios registrados en la red Scolcoin. Este contrato permite crear y consultar wallets asociadas a usuarios, así como autorizar y gestionar VPS (Servidores Privados Virtuales) relacionados con las wallets.
