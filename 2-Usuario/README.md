@@ -29,5 +29,6 @@ El contrato también incluye dos listas privadas: "users" y "vpsList". Estas lis
 El contrato tiene una función constructora que se ejecuta al desplegar el contrato y es accesible solo por el propietario del contrato (función "onlyOwner"). No se realiza ninguna operación dentro de la función constructora en este caso.
 
 El contrato incluye varias funciones públicas para interactuar con los usuarios y los VPS. Algunas de las funciones principales son las siguientes:
-* function AddUser: Permite agregar un nuevo usuario a la lista de usuarios. Se deben proporcionar los datos del usuario como parámetros, incluyendo el nombre, el ccoNit, el email, el indicativo, el celular, el nickname y la dirección de la billetera. Antes de agregar al usuario, se realizan varias validaciones para asegurar que los datos sean correctos y únicos.
+* __function AddUser:__ Permite agregar un nuevo usuario a la lista de usuarios. Se deben proporcionar los datos del usuario como parámetros, incluyendo el nombre, el ccoNit, el email, el indicativo, el celular, el nickname y la dirección de la billetera. Antes de agregar al usuario, se realizan varias validaciones para asegurar que los datos sean correctos y únicos.
+* __function AddUserVPS:__ Permite a los servidores VPS registrados almacenar usuarios de sus aplicaciones para tener un solo registro del universo Scolcoin.
 * 
