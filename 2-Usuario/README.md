@@ -1,0 +1,31 @@
+Este contrato de Solidity es un contrato inteligente para gestionar usuarios de una red llamada Scolcoin. Proporciona una estructura de datos para almacenar información básica de cada usuario de forma universal y encriptada. El contrato incluye una lista de usuarios y una lista de VPS (Servidores Privados Virtuales) autorizados.
+
+El contrato utiliza la versión de Solidity ^0.8.0 y tiene una optimización establecida en 5000. Además, el contrato importa la biblioteca "Ownable" del paquete "@openzeppelin/contracts/access/Ownable.sol", que proporciona funcionalidades para establecer y gestionar el propietario del contrato.
+
+# El contrato tiene la siguiente estructura de datos:
+
+### Struct "User": Representa a un usuario y contiene los siguientes campos:
+
+"id": Identificador único del usuario.
+"nombre": Nombre del usuario.
+"ccoNit": Número de identificación ciudadana o NIT del usuario.
+"email": Dirección de correo electrónico del usuario.
+"indicativo": Indicativo del país del usuario.
+"celular": Número de celular del usuario.
+"nickname": Nombre de usuario del usuario.
+"wallet": Dirección de la billetera del usuario.
+"wallet_vps": Dirección de la billetera VPS del usuario.
+"user_auto": Indicador de autorización del usuario.
+
+### Struct "VPS": Representa un VPS autorizado y contiene los siguientes campos:
+
+* "Id": Identificador único del VPS.
+* "vps": Dirección del VPS.
+* "empresa": Nombre de la empresa asociada al VPS.
+* "vps_auto": Indicador de autorización del VPS.
+
+El contrato también incluye dos listas privadas: "users" y "vpsList". Estas listas almacenan los usuarios y los VPS respectivamente. Además, hay variables "numusuario" y "totalvps" que se utilizan para generar identificadores únicos para los usuarios y los VPS.
+
+El contrato tiene una función constructora que se ejecuta al desplegar el contrato y es accesible solo por el propietario del contrato (función "onlyOwner"). No se realiza ninguna operación dentro de la función constructora en este caso.
+
+El contrato incluye varias funciones públicas para interactuar con los usuarios y los VPS. Algunas de las funciones principales son las siguientes:
