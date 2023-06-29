@@ -2,7 +2,7 @@ Desarrollo Empresa: BLOCKCHAIN TECHNOLOGY SOLUTIONS AND ARTIFICIAL INTELLIGENCE 
 
 __Nota:__ Este contrato es una continuacion del modelo usuario universal 2-Usuario.
 
-_Version 1.0 lanzamiento 29/06/2023 contrato 0x9c6311b7F3636f5d9354fFf519baD50080747d41 en la red Mainnet_
+_Version 1.0 lanzamiento 29/06/2023 contrato __0x9c6311b7F3636f5d9354fFf519baD50080747d41__ en la red Mainnet_
 
 
 El contrato "Wallets" es un contrato inteligente diseñado para gestionar las wallets de los usuarios registrados en la red Scolcoin. Este contrato permite crear y consultar wallets asociadas a usuarios, así como autorizar y gestionar VPS (Servidores Privados Virtuales) relacionados con las wallets.
@@ -22,3 +22,5 @@ El contrato incluye dos estructuras: "Wallet" y "VPS". La estructura "Wallet" co
 * __id_VPS(address wallet)__: Esta función obtiene el ID del VPS por su dirección de wallet. Recibe la dirección de la wallet y devuelve el ID del VPS encontrado.
 
 En resumen, el contrato __"Wallets"__ permite gestionar las wallets de los usuarios registrados en la red Scolcoin, manteniendo un control sobre los VPS autorizados y su relación con las wallets. Proporciona funciones para crear, consultar y autorizar wallets y VPS, brindando seguridad y control en la gestión de los activos en la red.
+
+__Responsabilidades__: La empresa Blockchain Technology Diseño este contrato con el motivo que todos los usuarios sigan este mismo modelo pueden copiar este contrato o seguir el universal incluso pueden modificarlo y sugerir cambios. es un complemento del contrato usuario universal https://github.com/scolcoin/SmartContract/tree/main/2-Usuario
