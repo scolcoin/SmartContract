@@ -1,5 +1,5 @@
 Desarrollo Empresa: BLOCKCHAIN TECHNOLOGY SOLUTIONS AND ARTIFICIAL INTELLIGENCE AI S.A.S
-### Version 1.0 lanzamiento 29/06/2023 contrato 0x3773F1B6D5B410d1eb7E787C3772DD8F34268F1B en la red Mainnet
+__Version 1.0 lanzamiento 29/06/2023 contrato 0x3773F1B6D5B410d1eb7E787C3772DD8F34268F1B en la red Mainnet__
 Este contrato de Solidity es un contrato inteligente para gestionar usuarios de una red llamada Scolcoin. Proporciona una estructura de datos para almacenar información básica de cada usuario de forma universal y encriptada. El contrato incluye una lista de usuarios y una lista de VPS (Servidores Privados Virtuales) autorizados.
 
 El contrato utiliza la versión de Solidity ^0.8.0 y tiene una optimización establecida en 5000. Además, el contrato importa la biblioteca "Ownable" del paquete "@openzeppelin/contracts/access/Ownable.sol", que proporciona funcionalidades para establecer y gestionar el propietario del contrato.
