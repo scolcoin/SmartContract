@@ -1,3 +1,4 @@
+# Version 1.0 lanzamiento 29/06/2023 contrato 0x3773F1B6D5B410d1eb7E787C3772DD8F34268F1B en la red Mainnet
 Este contrato de Solidity es un contrato inteligente para gestionar usuarios de una red llamada Scolcoin. Proporciona una estructura de datos para almacenar información básica de cada usuario de forma universal y encriptada. El contrato incluye una lista de usuarios y una lista de VPS (Servidores Privados Virtuales) autorizados.
 
 El contrato utiliza la versión de Solidity ^0.8.0 y tiene una optimización establecida en 5000. Además, el contrato importa la biblioteca "Ownable" del paquete "@openzeppelin/contracts/access/Ownable.sol", que proporciona funcionalidades para establecer y gestionar el propietario del contrato.
@@ -31,4 +32,5 @@ El contrato tiene una función constructora que se ejecuta al desplegar el contr
 El contrato incluye varias funciones públicas para interactuar con los usuarios y los VPS. Algunas de las funciones principales son las siguientes:
 * __function AddUser:__ Permite agregar un nuevo usuario a la lista de usuarios. Se deben proporcionar los datos del usuario como parámetros, incluyendo el nombre, el ccoNit, el email, el indicativo, el celular, el nickname y la dirección de la billetera. Antes de agregar al usuario, se realizan varias validaciones para asegurar que los datos sean correctos y únicos.
 * __function AddUserVPS:__ Permite a los servidores VPS registrados almacenar usuarios de sus aplicaciones para tener un solo registro del universo Scolcoin.
-* 
+* __function AutoUser:__ Permite habilitar o desabilitar un usuario de la red con la opcion de Booleano de vps_auto, donde True es activo y false es desactivado esto se emplea cuando el usuario pide la baja de su usuario de la red respetando las politicas de la leyes internacionales de proteccion de datos, esta funcion solo la puede realizar un usuario de mayor nivel llamado Ownable o dueño del contracto.
+* __function AutoVPS:__
