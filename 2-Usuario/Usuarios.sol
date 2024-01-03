@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// opt 5000 compiler 0.8.7+commite28d00a7
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -26,6 +27,11 @@ contract Usuarios is Ownable {
     event UsuarioModificado(address indexed usuario, address nuevaWalletVPS);
 
     constructor(address _vpsContract) Ownable() {
+        setVPSContract(_vpsContract);
+    }
+
+    function setVPSContract(address _vpsContract) public onlyOwner {
+        require(_vpsContract != address(0), "VPS contract address cannot be zero");
         vpsContract = VPS(_vpsContract);
     }
 
