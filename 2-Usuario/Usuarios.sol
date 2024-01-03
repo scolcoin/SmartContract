@@ -6,8 +6,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./VPS.sol";
 
 contract Usuarios is Ownable {
-    VPS public vpsContract;
-
     struct User {
         uint id;
         string nombre;
@@ -17,14 +15,22 @@ contract Usuarios is Ownable {
         string celular;
         string nickname;
         address wallet;
-        address wallet_vps;
         bool user_auto;
     }
 
-    User[] private users;
+    mapping(address => User) private users; // Mapping para buscar usuarios por dirección
+    mapping(string => bool) private emailExists; // Mapping para verificar duplicados por email
+
     uint public numusuario;
+    VPS public vpsContract; // Agregamos la declaración de la variable vpsContract
 
     event UsuarioModificado(address indexed usuario, address nuevaWalletVPS);
+
+    modifier onlyVPS() {
+    require(vpsContract.findUVPS(msg.sender) > 0, "VPS address not authorized in VPS.sol");
+    _;
+    }
+
 
     constructor(address _vpsContract) Ownable() {
         setVPSContract(_vpsContract);
@@ -35,53 +41,94 @@ contract Usuarios is Ownable {
         vpsContract = VPS(_vpsContract);
     }
 
-    function addUserVPS(
-        address _wallet,
-        string memory _nombre,
-        string memory _ccoNit,
-        string memory _email,
-        string memory _indicativo,
-        string memory _celular,
-        string memory _nickname
-    ) public onlyOwner {
-        require(bytes(_nombre).length > 0, "Nombre is required");
-        require(bytes(_ccoNit).length > 0, "CCoNit must be greater than 0");
+    function addUser(
+    address _wallet,
+    string memory _nombre,
+    string memory _ccoNit,
+    string memory _email,
+    string memory _indicativo,
+    string memory _celular,
+    string memory _nickname
+) external onlyVPS {
+    require(bytes(_nombre).length > 0, "Nombre es requerido");
+    require(bytes(_ccoNit).length > 0, "CCoNit es requerido");
+    require(bytes(_email).length > 0, "Email es requerido");
+    require(bytes(_indicativo).length > 0, "Indicativo es requerido");
+    require(bytes(_celular).length > 0, "Celular es requerido");
+    require(bytes(_nickname).length > 0, "Usuario es requerido");
+    require(!emailExists[_email], "User with this email already exists");
 
-        vpsContract.createVPS(_wallet, _nombre);
+    // Verificar si la dirección de VPS está autorizada
+    uint vpsId = vpsContract.findUVPS(msg.sender);
+    require(vpsId > 0, "VPS address not authorized");
 
-        numusuario++;
-        User memory newUser = User(
-            numusuario,
-            _nombre,
-            _ccoNit,
-            _email,
-            _indicativo,
-            _celular,
-            _nickname,
-            _wallet,
-            address(0),
-            true
-        );
-        users.push(newUser);
+    numusuario++;
+    User memory newUser = User(
+        numusuario,
+        _nombre,
+        _ccoNit,
+        _email,
+        _indicativo,
+        _celular,
+        _nickname,
+        _wallet,
+        true
+    );
+
+    users[_wallet] = newUser;
+    emailExists[_email] = true;
+}
+
+
+    function modifyUser(
+    address _user,
+    string memory _nombre,
+    string memory _ccoNit,
+    string memory _email,
+    string memory _indicativo,
+    string memory _celular,
+    string memory _nickname
+) external onlyVPS {
+    require(bytes(_nombre).length > 0, "Nombre es requerido");
+    require(bytes(_ccoNit).length > 0, "CCoNit es requerido");
+    require(bytes(_email).length > 0, "Email es requerido");
+    require(bytes(_indicativo).length > 0, "Indicativo es requerido");
+    require(bytes(_celular).length > 0, "Celular es requerido");
+    require(bytes(_nickname).length > 0, "Usuario es requerido");
+    require(users[_user].wallet != address(0), "User not found");
+
+    // Eliminar el antiguo email del mapping de duplicados
+    emailExists[users[_user].email] = false;
+
+    // Actualizar los datos del usuario
+    users[_user].nombre = _nombre;
+    users[_user].ccoNit = _ccoNit;
+    users[_user].email = _email;
+    users[_user].indicativo = _indicativo;
+    users[_user].celular = _celular;
+    users[_user].nickname = _nickname;
+
+    // Agregar el nuevo email al mapping de duplicados
+    emailExists[_email] = true;
+
+    emit UsuarioModificado(_user, users[_user].wallet);
+}
+
+
+
+function modifyUserWallet(address _user, address nuevaWallet) external onlyVPS {
+    require(nuevaWallet != address(0), "Wallet address is required");
+    require(users[_user].wallet != address(0), "User not found");
+
+    users[_user].wallet = nuevaWallet;
+    emit UsuarioModificado(_user, nuevaWallet);
+}
+
+// solo para VPS
+    function getUserInfo(address _user) external onlyVPS view returns (User memory) {
+        require(users[_user].wallet != address(0), "User not found");
+        return users[_user];
     }
 
-    function modifyWalletVPS(string memory _ccoNit, address nuevaWalletVPS) public onlyOwner {
-        require(nuevaWalletVPS != address(0), "Wallet address is required");
-
-        uint idUsuario = findCcoNit(_ccoNit);
-
-        users[idUsuario - 1].wallet_vps = nuevaWalletVPS;
-        vpsContract.modifyWalletVPS(users[idUsuario - 1].wallet, nuevaWalletVPS);
-
-        emit UsuarioModificado(users[idUsuario - 1].wallet, nuevaWalletVPS);
-    }
-
-    function findCcoNit(string memory _ccoNit) internal view returns (uint) {
-        for (uint i = 0; i < users.length; i++) {
-            if (keccak256(bytes(users[i].ccoNit)) == keccak256(bytes(_ccoNit)) && users[i].user_auto) {
-                return users[i].id;
-            }
-        }
-        revert("Usuario no encontrado");
-    }
+    // Otras funciones que puedas necesitar...
 }
