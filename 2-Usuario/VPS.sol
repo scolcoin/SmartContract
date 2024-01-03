@@ -18,16 +18,32 @@ contract VPS is Ownable {
     VPSData[] private vpsList;
     uint public totalVPS;
 
+    event UsuarioModificado(address indexed usuario, address nuevaWalletVPS);
+
     constructor(address _usuariosContract) Ownable() {
         usuariosContract = Usuarios(_usuariosContract);
     }
 
-    function createVPS(address _vps, string memory _empresa) public onlyOwner {
+    function createVPS(string memory _empresa, address _vpsWallet) public onlyOwner {
         uint vpsId = totalVPS++;
-        require(_vps != address(0), "VPS address is required");
+        require(_vpsWallet != address(0), "VPS wallet address is required");
 
-        VPSData memory newVPS = VPSData(vpsId, _vps, _empresa, true);
-        vpsList.push(newVPS);
+        VPSData memory newVPSData = VPSData(vpsId, _vpsWallet, _empresa, true);
+        vpsList.push(newVPSData);
+
+        // Agregar el nuevo VPS como usuario universal
+        //usuariosContract.addUser(_vpsWallet, "", "", "", "", "", "");
+    }
+
+    function modifyWalletVPS(address _vps, address nuevaWalletVPS) public onlyOwner {
+        uint vpsId = findUVPS(_vps);
+        require(nuevaWalletVPS != address(0), "Wallet address is required");
+
+        vpsList[vpsId].vps = nuevaWalletVPS;
+
+        // Modificar la dirección de la wallet en el contrato de Usuarios
+        usuariosContract.modifyUserWallet(_vps, nuevaWalletVPS);
+        emit UsuarioModificado(_vps, nuevaWalletVPS);
     }
 
     function findUVPS(address _vps) public view returns (uint) {
@@ -38,13 +54,5 @@ contract VPS is Ownable {
             }
         }
         revert("VPS no encontrado");
-    }
-
-    function modifyWalletVPS(address _vps, address nuevaWalletVPS) public onlyOwner {
-        uint vpsId = findUVPS(_vps);
-
-        require(nuevaWalletVPS != address(0), "Wallet address is required");
-
-        vpsList[vpsId].vps = nuevaWalletVPS;
     }
 }
