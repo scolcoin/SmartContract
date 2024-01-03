@@ -2,33 +2,30 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./Usuarios.sol"; // Importa el contrato Usuarios
+import "./Usuarios.sol";
 
 contract VPS is Ownable {
-    Usuarios public usuariosContract; // Asegúrate de importar el contrato Usuarios
+    Usuarios public usuariosContract;
 
     struct VPSData {
-        uint Id;
+        uint id;
         address vps;
         string empresa;
         bool vps_auto;
     }
 
     VPSData[] private vpsList;
-    uint totalvps;
+    uint public totalVPS;
 
-    // Constructor que recibe la dirección del contrato Usuarios
     constructor(address _usuariosContract) Ownable() {
         usuariosContract = Usuarios(_usuariosContract);
     }
 
     function createVPS(address _vps, string memory _empresa) public onlyOwner {
-        uint userID = totalvps++;
+        uint vpsId = totalVPS++;
         require(_vps != address(0), "VPS address is required");
-        // Validaciones adicionales si es necesario
-        // ...
 
-        VPSData memory newVPS = VPSData(userID, _vps, _empresa, true);
+        VPSData memory newVPS = VPSData(vpsId, _vps, _empresa, true);
         vpsList.push(newVPS);
     }
 
@@ -36,24 +33,17 @@ contract VPS is Ownable {
         for (uint i = 0; i < vpsList.length; i++) {
             VPSData memory vps = vpsList[i];
             if (vps.vps == _vps) {
-                return vps.Id;
+                return vps.id;
             }
         }
         revert("VPS no encontrado");
     }
 
-    // Agrega otras funciones según tus necesidades
-    // ...
+    function modifyWalletVPS(address _vps, address nuevaWalletVPS) public onlyOwner {
+        uint vpsId = findUVPS(_vps);
 
-    // Modificar Usuario Wallet VPS
-    function Modi_WVPS(
-        address _vps,
-        address nuevawallet_VPS
-    ) public onlyOwner {
-        uint idvps = findUVPS(_vps);
+        require(nuevaWalletVPS != address(0), "Wallet address is required");
 
-        require(nuevawallet_VPS != address(0), "Wallet address is required");
-
-        vpsList[idvps].vps_auto = nuevawallet_VPS;
+        vpsList[vpsId].vps = nuevaWalletVPS;
     }
 }
