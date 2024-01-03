@@ -2,7 +2,7 @@ Desarrollo Empresa: BLOCKCHAIN TECHNOLOGY SOLUTIONS AND ARTIFICIAL INTELLIGENCE 
 
 __Nota__ La informacion que el usuario envie debe estar encriptada en el VPS.
 
-__Version 2.0 lanzamiento 03/01/2024 contrato 0xe5E9420c752485Ba052ef57Ea4C63F0E21cf19BC en la red Mainnet__
+__Version 2.0 lanzamiento 03/01/2024 contrato 0xC1d5cA0D09e8963b8fe9906AdB37e26B660d5E5D en la red Mainnet__
 
 Este contrato de Solidity es un contrato inteligente para gestionar usuarios de una red llamada Scolcoin. Proporciona una estructura de datos para almacenar información básica de cada usuario de forma universal y encriptada. El contrato incluye una lista de usuarios y una lista de VPS (Servidores Privados Virtuales) autorizados.
 
