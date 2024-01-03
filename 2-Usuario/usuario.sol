@@ -16,10 +16,10 @@ contract Usuarios is Ownable {
     struct User {
         uint id;
         string nombre;
-        uint ccoNit;
+        string ccoNit;
         string email;
-        uint indicativo;
-        uint celular;
+        string indicativo;
+        string celular;
         string nickname;
         address wallet;
         address wallet_vps;
@@ -57,19 +57,19 @@ contract Usuarios is Ownable {
 
     function AddUser(
         string memory _nombre,
-        uint _ccoNit,
+        string memory _ccoNit,
         string memory _email,
-        uint _indicativo,
-        uint _celular,
+        string memory _indicativo,
+        string memory _celular,
         string memory _nickname,
         address _wallet
     ) public returns (uint userID){
         require(bytes(_nombre).length > 0, "Nombre is required");
-        require(_ccoNit > 0, "CCoNit must be greater than 0");
+        require(bytes(_ccoNit).length > 0, "CCoNit must be greater than 0");
         require(bytes(_email).length > 0, "Email is required");
         require(validateEmail(_email), "Invalid email format");
-        require(_indicativo > 0, "Indicativo is required");
-        require(_celular > 0, "Celular is required");
+        require(bytes(_indicativo).length > 0, "Indicativo is required");
+        require(bytes(_celular).length > 0, "Celular is required");
         require(bytes(_nickname).length > 0, "User is required");
         require(_wallet != address(0), "Wallet address is required");
         
@@ -103,58 +103,44 @@ contract Usuarios is Ownable {
 
 // Buscamos Usuario y nos devuelve el ID
 
-    function findcconit(
-        uint _ccoNit
-    ) private view returns (uint) {
-        for (uint i = 0; i < users.length; i++) {
-            User memory user = users[i];
-            if (
-                (
-                    user.ccoNit == _ccoNit
-                ) && user.user_auto ==true
-            ) {
-                return user.id;
-            }
+function findcconit(string memory _ccoNit) private view returns (uint) {
+    for (uint i = 0; i < users.length; i++) {
+        User memory user = users[i];
+        if (keccak256(bytes(user.ccoNit)) == keccak256(bytes(_ccoNit)) && user.user_auto) {
+            return user.id;
         }
-        revert("Usuario no encontrado");
-        
     }
 
-    // busqueda de usuario por cedula trae el ID
-     function findcconit_vps(
-        uint _ccoNit
-    ) private view returns (uint) {
-        for (uint i = 0; i < users.length; i++) {
-            User memory user = users[i];
-            if (
-                (
-                    user.ccoNit == _ccoNit
-                ) && user.user_auto ==true
-            ) {
-                return user.id;
-            }
-        }
-        //revert("Usuario no encontrado");
-        return 0;
-    }   
+    // Usuario no encontrado, lanzar evento o devolver un valor especial
+    revert("Usuario no encontrado");
+}
 
-    // busqueda de usuario y nos trae wallet
-      function findcconit_wallet(
-        uint _ccoNit
-    ) private view returns (address) {
-        for (uint i = 0; i < users.length; i++) {
-            User memory user = users[i];
-            if (
-                (
-                    user.ccoNit == _ccoNit
-                ) && user.user_auto ==true
-            ) {
-                return user.wallet;
-            }
+
+    // busqueda de usuario por cedula trae el ID
+function findcconit_vps(string memory _ccoNit) private view returns (uint) {
+    for (uint i = 0; i < users.length; i++) {
+        User memory user = users[i];
+        if (keccak256(bytes(user.ccoNit)) == keccak256(bytes(_ccoNit)) && user.user_auto) {
+            return user.id;
         }
-        revert("Usuario no encontrado");
-        
-    }   
+    }
+
+    // Usuario no encontrado, lanzar evento o devolver un valor especial
+    return 0;
+}
+ 
+
+function findcconit_wallet(string memory _ccoNit) private view returns (address) {
+    for (uint i = 0; i < users.length; i++) {
+        User memory user = users[i];
+        if (keccak256(bytes(user.ccoNit)) == keccak256(bytes(_ccoNit)) && user.user_auto) {
+            return user.wallet;
+        }
+    }
+
+    // Usuario no encontrado, lanzar evento o devolver un valor especial
+    revert("Usuario no encontrado");
+}
 
 // comparamos Email
      function validateEmail(string memory email) private pure returns (bool) {
@@ -194,19 +180,18 @@ contract Usuarios is Ownable {
         return true; // Usuario único
     }
 
-   function check_cconit(
-        uint _ccoNit
-    ) internal view returns (bool) {
-        for (uint i = 0; i < users.length; i++) {
-            User memory user = users[i];
-            if (
-                user.ccoNit == _ccoNit 
-            ) {
-                return false; // Usuario duplicado
-            }
+function check_cconit(string memory _ccoNit) internal view returns (bool) {
+    for (uint i = 0; i < users.length; i++) {
+        User memory user = users[i];
+        if (keccak256(bytes(user.ccoNit)) == keccak256(bytes(_ccoNit))) {
+            return false; // Usuario duplicado
         }
-        return true; // Usuario único
     }
+
+    // Usuario no encontrado, el número de identificación es único
+    return true;
+}
+
 
 // validamos email
    function check_email(
@@ -224,19 +209,18 @@ contract Usuarios is Ownable {
     }
 
 // validamos celular
-  function check_celular(
-        uint _celular
-    ) internal view returns (bool) {
-        for (uint i = 0; i < users.length; i++) {
-            User memory user = users[i];
-            if (
-                user.celular == _celular 
-            ) {
-                return false; // Usuario duplicado
-            }
+function check_celular(string memory _celular) internal view returns (bool) {
+    for (uint i = 0; i < users.length; i++) {
+        User memory user = users[i];
+        if (keccak256(bytes(user.celular)) == keccak256(bytes(_celular))) {
+            return false; // Usuario duplicado
         }
-        return true; // Usuario único
     }
+
+    // Usuario no encontrado, el número de celular es único
+    return true;
+}
+
 
 
     function checknick(
@@ -253,33 +237,7 @@ contract Usuarios is Ownable {
         return true; // Usuario único
     }
 
-/*
-    function checkUniqueness(
-        string memory _nombre,
-        uint _ccoNit,
-        string memory _nickname,
-        address _wallet,
-        address _wallet_vps,
-        string memory _email,
-        uint _celular
-    ) internal view returns (bool) {
-        for (uint i = 0; i < users.length; i++) {
-            User memory user = users[i];
-            if (
-                keccak256(bytes(user.nombre)) == keccak256(bytes(_nombre)) ||
-                user.ccoNit == _ccoNit ||
-                keccak256(bytes(user.nickname)) == keccak256(bytes(_nickname)) ||
-                user.wallet == _wallet ||
-                user.wallet_vps == _wallet_vps ||
-                keccak256(bytes(user.email)) == keccak256(bytes(_email)) ||
-                user.celular == _celular 
-            ) {
-                return false; // Usuario duplicado
-            }
-        }
-        return true; // Usuario único
-    }
-*/
+
 // walletVPS
    function check_wallet(
         address _wallet
@@ -366,17 +324,17 @@ function valUVPS(uint _nu) private view returns (bool) {
     } 
 
 // Add User VPS
-    function AddUserVPS(address _wallet_vps, string memory _nombre, uint _ccoNit, string memory _email, uint _indicativo, uint _celular, string memory _nickname) public returns (uint userID) {
+    function AddUserVPS(address _wallet_vps, string memory _nombre, string memory _ccoNit, string memory _email, string memory _indicativo, string memory _celular, string memory _nickname) public returns (uint userID) {
         address userAddress = msg.sender;
         uint idusu=0;
         uint idvps=0;
         //requiere
         require(bytes(_nombre).length > 0, "Nombre is required");
-        require(_ccoNit > 0, "CCoNit must be greater than 0");
+        require(bytes(_ccoNit).length > 0, "CCoNit must be greater than 0");
         require(bytes(_email).length > 0, "Email is required");
         require(validateEmail(_email), "Invalid email format");
-        require(_indicativo > 0, "Indicativo is required");
-        require(_celular > 0, "Celular is required");
+        require(bytes(_indicativo).length > 0, "Indicativo is required");
+        require(bytes(_celular).length > 0, "Celular is required");
         require(bytes(_nickname).length > 0, "User is required");
         require(_wallet_vps != address(0), "Wallet address is required");
 
@@ -429,16 +387,19 @@ function valUVPS(uint _nu) private view returns (bool) {
     }
 
 // modifica usuario desde VPS:
-function m_usu_cc(uint _ccoNit, address _newWalletVPS) private {
-        for (uint i = 0; i < users.length; i++) {
-            User storage user = users[i];
-            if (user.ccoNit == _ccoNit) {
-                user.wallet_vps = _newWalletVPS;
-                return;
-            }
+function m_usu_cc(string memory _ccoNit, address _newWalletVPS) private {
+    for (uint i = 0; i < users.length; i++) {
+        User storage user = users[i];
+        if (keccak256(bytes(user.ccoNit)) == keccak256(bytes(_ccoNit))) {
+            user.wallet_vps = _newWalletVPS;
+            return;
         }
-        revert("Usuario no encontrado");
-    }  
+    }
+
+    // Usuario no encontrado, lanzar evento o devolver un valor especial
+    revert("Usuario no encontrado");
+}
+ 
 
     //Autorizar VPS o Negar
     function AutoVPS(address _vps, bool _permiso) public onlyOwner {
@@ -449,7 +410,7 @@ function m_usu_cc(uint _ccoNit, address _newWalletVPS) private {
     }
 
   // Autorizar Usuario
-    function AutoUser(uint _ccoNit, bool _permiso) public onlyOwner {
+    function AutoUser(string memory _ccoNit, bool _permiso) public onlyOwner {
         uint nvid= findcconit_vps(_ccoNit);
         require(users.length > 1, "No hay suficientes datos");
 
@@ -469,20 +430,20 @@ function m_usu_cc(uint _ccoNit, address _newWalletVPS) private {
 
     // ver datos solo los VPS
     function Consulta_VPS(  
-        uint _ccoNit
+        string memory _ccoNit
         ) public view returns (
             uint    Id,
             string memory  Nombres,
-            uint    CCoNit,
+            string memory  CCoNit,
             string memory  Email,
-            uint    Indicativo,
-            uint    Celular,
+            string memory  Indicativo,
+            string memory  Celular,
             string  memory _Nickname,
             address Wallet,
             address Wallet_vps,
             bool    User_auto  
         ){
-            require(_ccoNit > 0, "CCoNit must be greater than 0");
+            require(bytes(_ccoNit).length > 0, "CCoNit must be greater than 0");
               // wallet VPS
               address userAddress = msg.sender;
               //traemos posicion
@@ -517,11 +478,11 @@ function m_usu_cc(uint _ccoNit, address _newWalletVPS) private {
 
       // Modificar Usuario Datos Variables
     function Modificar_all(  
-        uint _ccoNit,      
+        string memory _ccoNit,      
         string memory _nombre,
         string memory _email,
-        uint _indicativo,
-        uint _celular,
+        string memory _indicativo,
+        string memory _celular,
         string memory _nickname
         ) public {
         //variables locales
@@ -530,10 +491,10 @@ function m_usu_cc(uint _ccoNit, address _newWalletVPS) private {
         require(bytes(_nombre).length > 0, "Nombre is required");
         require(bytes(_email).length > 0, "Email is required");
         require(validateEmail(_email), "Invalid email format");
-        require(_indicativo > 0, "Indicativo is required");
-        require(_celular > 0, "Celular is required");
+        require(bytes(_indicativo).length > 0, "Indicativo is required");
+        require(bytes(_celular).length > 0, "Celular is required");
         require(bytes(_nickname).length > 0, "User is required");
-        require(_ccoNit > 0, "CCoNit must be greater than 0");
+        require(bytes(_ccoNit).length > 0, "CCoNit must be greater than 0");
         // wallet usuario
         address userAddress = msg.sender;
         //traemos posicion
@@ -556,14 +517,14 @@ function m_usu_cc(uint _ccoNit, address _newWalletVPS) private {
 
       // Modificar Usuario Datos Variables
     function Modi_name(  
-        uint _ccoNit,      
+        string memory _ccoNit,      
         string memory _nombre
         ) public {
         //variables locales
         address localwallet;    
         //Requiere    
         require(bytes(_nombre).length > 0, "Nombre is required");
-        require(_ccoNit > 0, "CCoNit must be greater than 0");
+        require(bytes(_ccoNit).length > 0, "CCoNit must be greater than 0");
         // wallet usuario
         address userAddress = msg.sender;
         //traemos posicion
@@ -582,16 +543,16 @@ function m_usu_cc(uint _ccoNit, address _newWalletVPS) private {
 
 // Modificar Usuario Datos Variables
     function Modi_celular(  
-        uint _ccoNit,      
-        uint _indicativo,
-        uint _celular
+        string memory _ccoNit,      
+        string memory _indicativo,
+        string memory _celular
         ) public {
         //variables locales
         address localwallet;    
         //Requiere    
-        require(_indicativo > 0, "Indicativo is required");
-        require(_celular > 0, "Celular is required");
-        require(_ccoNit > 0, "CCoNit must be greater than 0");
+        require(bytes(_indicativo).length > 0, "Indicativo is required");
+        require(bytes(_celular).length > 0, "Celular is required");
+        require(bytes(_ccoNit).length > 0, "CCoNit must be greater than 0");
         // wallet usuario
         address userAddress = msg.sender;
         //traemos posicion
@@ -611,14 +572,14 @@ function m_usu_cc(uint _ccoNit, address _newWalletVPS) private {
 
 // Modificar Usuario Datos Variables
     function ModiUser(  
-        uint _ccoNit,      
+        string memory _ccoNit,      
         string memory _nickname
         ) public {
         //variables locales
         address localwallet;    
         //Requiere    
         require(bytes(_nickname).length > 0, "User is required");
-        require(_ccoNit > 0, "CCoNit must be greater than 0");
+        require(bytes(_ccoNit).length > 0, "CCoNit must be greater than 0");
         // wallet usuario
         address userAddress = msg.sender;
         //traemos posicion
@@ -638,12 +599,12 @@ function m_usu_cc(uint _ccoNit, address _newWalletVPS) private {
  // Modificar Usuario Wallet por medio del Servidor VPS
 
 function Modi_VPS(  
-        uint _ccoNit,
+        string memory _ccoNit,
         address nuevawallet
          ) public {   
               address userAddress = msg.sender;
               require(nuevawallet != address(0), "Wallet address is required"); 
-              require(_ccoNit > 0, "CCoNit must be greater than 0");
+              require(bytes(_ccoNit).length > 0, "CCoNit must be greater than 0");
               //traemos posicion
               uint idusu=findcconit_vps(_ccoNit);
               uint idvps=findUVPS(userAddress);
@@ -665,12 +626,12 @@ function Modi_VPS(
 // Modificar Usuario Wallet VPS
 
 function Modi_WVPS(  
-        uint _ccoNit,
+        string memory _ccoNit,
         address nuevawallet_VPS
          ) public {   
               address userAddress = msg.sender;
               require(nuevawallet_VPS != address(0), "Wallet address is required"); 
-              require(_ccoNit > 0, "CCoNit must be greater than 0");
+              require(bytes(_ccoNit).length > 0, "CCoNit must be greater than 0");
               //traemos posicion
               uint idusu=findcconit_vps(_ccoNit);
               uint idvps=findUVPS(userAddress);
