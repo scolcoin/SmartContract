@@ -47,54 +47,72 @@ contract Usuarios is Ownable {
         return false;
     }
 
-    function agregarVPS(address _vps, string memory _empresa, bool _vps_auto) external onlyOwner {
-        uint idVPS = listaVPS.length;
-        listaVPS.push(DatosVPS({
-            id: idVPS,
-            vps: _vps,
-            empresa: _empresa,
-            vps_auto: _vps_auto
-        }));
+function agregarVPS(address _vps, string memory _empresa, bool _vps_auto) external onlyOwner {
+    // Verificar si la dirección del VPS ya existe
+    require(!vpsExistePorWallet(_vps), "La wallet del VPS ya existe");
+
+    // Código para agregar el VPS
+    uint idVPS = listaVPS.length;
+    listaVPS.push(DatosVPS({
+        id: idVPS,
+        vps: _vps,
+        empresa: _empresa,
+        vps_auto: _vps_auto
+    }));
+}
+
+function vpsExistePorWallet(address _vps) public view returns (bool) {
+    for (uint i = 0; i < listaVPS.length; i++) {
+        if (listaVPS[i].vps == _vps) {
+            return true;
+        }
     }
+    return false;
+}
+
 
     function agregarUsuario(
-        string memory _nombre,
-        string memory _ccoNit,
-        string memory _email,
-        string memory _indicativo,
-        string memory _celular,
-        string memory _nickname,
-        address _wallet,
-        bool _user_auto
-    ) external soloVPS {
-        // Validaciones adicionales del código existente
-        require(bytes(_nombre).length > 0, "Nombre es requerido");
-        require(bytes(_ccoNit).length > 0, "CCoNit es requerido");
-        require(bytes(_email).length > 0, "Email es requerido");
-        require(bytes(_indicativo).length > 0, "Indicativo es requerido");
-        require(bytes(_celular).length > 0, "Celular es requerido");
-        require(bytes(_nickname).length > 0, "Usuario es requerido");
+    string memory _nombre,
+    string memory _ccoNit,
+    string memory _email,
+    string memory _indicativo,
+    string memory _celular,
+    string memory _nickname,
+    address _wallet,
+    bool _user_auto
+) external soloVPS {
+    // Validaciones adicionales del código existente
+    require(bytes(_nombre).length > 0, "Nombre es requerido");
+    require(bytes(_ccoNit).length > 0, "CCoNit es requerido");
+    require(bytes(_email).length > 0, "Email es requerido");
+    require(bytes(_indicativo).length > 0, "Indicativo es requerido");
+    require(bytes(_celular).length > 0, "Celular es requerido");
+    require(bytes(_nickname).length > 0, "Usuario es requerido");
 
-        // Verificar si la dirección del VPS está autorizada
-        uint idVPS = encontrarIDVPS(msg.sender);
-        require(idVPS > 0, "Direccion del VPS no autorizada");
+    // Verificar si la dirección del VPS está autorizada
+    uint idVPS = encontrarIDVPS(msg.sender);
+    require(idVPS > 0, "Direccion del VPS no autorizada");
 
-        // Código para agregar el usuario
-        numusuario++;
-        Usuario memory nuevoUsuario = Usuario(
-            numusuario,
-            _nombre,
-            _ccoNit,
-            _email,
-            _indicativo,
-            _celular,
-            _nickname,
-            _wallet,
-            _user_auto
-        );
+    // Verificar si la wallet ya existe
+    require(!usuarioExistePorWallet(_wallet), "La wallet ya existe");
 
-        listaUsuarios.push(nuevoUsuario);
-    }
+    // Código para agregar el usuario
+    numusuario++;
+    Usuario memory nuevoUsuario = Usuario(
+        numusuario,
+        _nombre,
+        _ccoNit,
+        _email,
+        _indicativo,
+        _celular,
+        _nickname,
+        _wallet,
+        _user_auto
+    );
+
+    listaUsuarios.push(nuevoUsuario);
+}
+
 
     function obtenerUsuario(uint _userId) external view onlyOwner returns (Usuario memory) {
         require(_userId < listaUsuarios.length, "Usuario no existe");
