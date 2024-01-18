@@ -4,7 +4,6 @@ __Nota__ La informacion que el usuario envie debe estar encriptada en el VPS.
 
 __Version 2.0 lanzamiento 03/01/2024__
 * Usuarios.sol contrato __0xC1d5cA0D09e8963b8fe9906AdB37e26B660d5E5D__ 
-* VPS.sol contrato __0x9253931a55037d9a21679563D9169dDed74FFa7f__
 
 __en la red Mainnet__
 
