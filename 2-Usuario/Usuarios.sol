@@ -205,6 +205,12 @@ contract Usuarios is Ownable {
         emit UsuarioModificado(_usuario, listaUsuarios[idUsuario].wallet);
     }
 
+    function obtenerDatosUsuarioPorId(uint _userId) external view soloVPS returns (Usuario memory) {
+    require(_userId < listaUsuarios.length, "Usuario no encontrado");
+    return listaUsuarios[_userId];
+}
+
+
     function modificarEstadoAutoVPS(address _vps, bool nuevoEstadoAutoVPS) external onlyOwner {
         uint idVPS = encontrarIDVPS(_vps);
 
