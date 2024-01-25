@@ -47,6 +47,46 @@ contract Usuarios is Ownable {
         return false;
     }
 
+event UsuarioExistentePorNickname(bool existe);
+event UsuarioExistentePorEmail(bool existe);
+event UsuarioExistentePorCcoNit(bool existe);
+
+function usuarioExistePorNickname(string memory _nickname) public view returns (bool) {
+    for (uint i = 0; i < listaUsuarios.length; i++) {
+        if (keccak256(abi.encodePacked(listaUsuarios[i].nickname)) == keccak256(abi.encodePacked(_nickname))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function usuarioExistePorEmail(string memory _email) public view returns (bool) {
+    for (uint i = 0; i < listaUsuarios.length; i++) {
+        if (keccak256(abi.encodePacked(listaUsuarios[i].email)) == keccak256(abi.encodePacked(_email))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function usuarioExistePorCcoNit(string memory _ccoNit) public view returns (bool) {
+    for (uint i = 0; i < listaUsuarios.length; i++) {
+        if (keccak256(abi.encodePacked(listaUsuarios[i].ccoNit)) == keccak256(abi.encodePacked(_ccoNit))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Llama a estos eventos fuera de las funciones de vista
+function verificarYEnviarEventos() external {
+    emit UsuarioExistentePorNickname(usuarioExistePorNickname("someNickname"));
+    emit UsuarioExistentePorEmail(usuarioExistePorEmail("someEmail"));
+    emit UsuarioExistentePorCcoNit(usuarioExistePorCcoNit("someCcoNit"));
+}
+
+
+
 function agregarVPS(address _vps, string memory _empresa, bool _vps_auto) external onlyOwner {
     // Verificar si la dirección del VPS ya existe
     require(!vpsExistePorWallet(_vps), "La wallet del VPS ya existe");
