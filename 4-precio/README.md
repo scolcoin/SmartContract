@@ -3,7 +3,7 @@ El Contrato Precios es un modelo para manejan las metricas de los token y los pr
 
 el precio de maneja en centavos en cualquier valor esto con el objetivo de tener hasta dos decimales de las monedas internacionales.
 
-Por ejemplo, si estás tratando con dólares y 4 decimales, puedes representar 1 dólar como 10000. Entonces, si deseas representar $1.50, lo representarías como 15000.
+Por ejemplo, si estás tratando con dólares y 5 decimales, puedes representar 1 dólar como 100000. Entonces, si deseas representar $1.50, lo representarías como 150000.
 
 ## Contrato Lista de Precios
 
