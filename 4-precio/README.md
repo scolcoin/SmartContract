@@ -230,3 +230,4 @@ Por ejemplo, si estás tratando con dólares y centavos, puedes representar 1 d�
 	}
 ]
 
+https://explorer.scolcoin.com/address/0xd7713AD21FBa961106dcF04585d63B15fb675634/contracts
