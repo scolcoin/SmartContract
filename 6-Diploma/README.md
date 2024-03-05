@@ -1,4 +1,5 @@
 // pragma solidity 0.8.18; Op 5000 
+Direccion: 0xf92eA40F27d2797773ea48066dc6f16c2ddDd5b1
 
 # Documento: Contrato DiplomaMaster
 
