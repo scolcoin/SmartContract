@@ -3,7 +3,8 @@ Desarrollo Empresa: BLOCKCHAIN TECHNOLOGY SOLUTIONS AND ARTIFICIAL INTELLIGENCE 
 __Nota__ La informacion que el usuario envie debe estar encriptada en el VPS.
 
 __Version 2.0 lanzamiento 25/01/2024__
-* Usuarios.sol contrato __0xf19453929c3C4AE735D3fd85ece410cc2acF650f__ 
+* Usuarios.sol contrato __0xc3Dd6Ebd638BaCff847685e67192ebDF0A0E1799__
+* https://explorer.scolcoin.com/address/0xc3Dd6Ebd638BaCff847685e67192ebDF0A0E1799/transactions
 
 __en la red Mainnet__
 
