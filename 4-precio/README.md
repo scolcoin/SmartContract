@@ -7,7 +7,7 @@ Por ejemplo, si estás tratando con dólares y 10 decimales, puedes representar 
 
 ## Contrato Lista de Precios
 
-- Contract Address: 0xd7713AD21FBa961106dcF04585d63B15fb675634
+- Contract Address: 0x55E4aB3822e435412cc094b947d478A1272961c9
 - Contract Name: ListaDePrecios
 - Compiler: v0.8.7+commit.e28d00a7
 - Optimization: Yes
