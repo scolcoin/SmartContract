@@ -230,4 +230,4 @@ Por ejemplo, si estás tratando con dólares y 10 decimales, puedes representar 
 	}
 ]
 
-https://explorer.scolcoin.com/address/0xd7713AD21FBa961106dcF04585d63B15fb675634/contracts
+https://explorer.scolcoin.com/address/0x55E4aB3822e435412cc094b947d478A1272961c9/contracts
