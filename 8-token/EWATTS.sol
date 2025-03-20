@@ -1,8 +1,11 @@
-/// @title EWATTS Token (EWG)
-/// @dev ERC20 token with minting and burning capabilities, owned by Watts Enterprise Group SAS.
-/// @author Watts Enterprise Group SAS
-/// @contact info@ewatts.co
-/// @website www.ewatts.co
+/// * @title EWATTS Token (EWG)
+/// * @dev ERC20 token with minting and burning capabilities, owned by Watts Enterprise Group SAS.
+/// * @author Watts Enterprise Group SAS
+/// * @contact info@ewatts.co
+/// * @website www.ewatts.co
+/// * @custom:whatsapp +57 3122908166
+/// * @custom: OPT 5000
+/// * @custm: 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
