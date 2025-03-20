@@ -1,11 +1,11 @@
-/// * @title EWATTS Token (EWG)
+/// * @title HERZIA Token (HIA)
 /// * @dev ERC20 token with minting and burning capabilities, owned by Watts Enterprise Group SAS.
 /// * @author Watts Enterprise Group SAS
 /// * @contact info@ewatts.co
 /// * @website www.ewatts.co
 /// * @custom:whatsapp +57 3205032082
 /// * @custom: OPT 5000
-/// * @custm: 0x454B1D1FC8ca39be358FAE728F8aC6d448910711
+/// * @custm: 
 // SPDX-License-Identifier: MIT
 // File: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/utils/Context.sol
 
