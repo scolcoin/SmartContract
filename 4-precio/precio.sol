@@ -1,4 +1,18 @@
 // SPDX-License-Identifier: MIT
+
+/**
+ * @title Precios
+ * @dev Lista con precios actualizados en cada transacciones.
+ * @author BLOCKCHAIN TECHNOLOGY SOLUTIONS AND ARTIFICIAL INTELLIGENCE AI S.A.S
+ * @NIT: 901676524-7
+ * @notice Este contrato implementa una lista publica.
+ * @custom: https://blockchaintechnologysas.com/
+ * @custom:email blockchaintechnologysas@gmail.com
+ * @custom:whatsapp +57 3157619684
+ * @custom: OPT 5000
+ * @custm: 0xF51e3C802feA295B24B3F0328eC03c3A27eecA71
+ */
+
 pragma solidity ^0.8.7;
 
 contract Precios {
