@@ -5,6 +5,8 @@ el precio de maneja en centavos en cualquier valor esto con el objetivo de tener
 
 Por ejemplo, si estás tratando con dólares y 10 decimales, puedes representar 1 dólar como 10000000000. Entonces, si deseas representar $1.50, lo representarías como 15000000000.
 
+la Wallet de SCOL como nativa es: 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE
+
 ## Contrato Lista de Precios
 
 - Contract Address: 0x55E4aB3822e435412cc094b947d478A1272961c9
