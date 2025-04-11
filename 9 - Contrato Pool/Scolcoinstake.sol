@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-contract ScolCoinMiningPool {
+contract ScolLab_1 {
     address public owner;
     string public constant symbol = "SCOL";
     uint256 public miningRate = 3; // 3% inicial (1-50%)
