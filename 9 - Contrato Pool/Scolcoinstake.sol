@@ -202,4 +202,33 @@ contract ScolCoinMiningPool {
     receive() external payable contractIsActive {
         emit DonationReceived(msg.sender, msg.value);
     }
+
+    // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.18;
+
+contract ScolCoinMiningPool {
+    // ... (todo el código anterior permanece igual)
+
+    // NUEVA FUNCIÓN PARA ADMIN
+    function getRequiredContractBalance() external view onlyOwner returns (uint256) {
+        uint256 totalInvestments;
+        
+        for (uint256 i = 0; i < investors.length; i++) {
+            Investment memory inv = investments[investors[i]];
+            if (!inv.withdrawn && inv.amount > 0) {
+                totalInvestments += inv.amount;
+            }
+        }
+        
+        // Sumamos el 10% de ganancia requerida
+        return totalInvestments + (totalInvestments * miningRate) / 100;
+    }
+
+    // FUNCIÓN ADICIONAL RECOMENDADA (para comparación fácil)
+    function getBalanceDeficit() external view onlyOwner returns (int256) {
+        uint256 required = this.getRequiredContractBalance();
+        uint256 current = address(this).balance;
+        return int256(required) - int256(current);
+    }
+}
 }
