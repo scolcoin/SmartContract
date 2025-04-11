@@ -4,12 +4,12 @@ pragma solidity ^0.8.18;
 contract ScolCoinMiningPool {
     address public owner;
     string public constant symbol = "SCOL";
-    uint256 public miningRate = 10; // 10% inicial (1-50%)
+    uint256 public miningRate = 3; // 3% inicial (1-50%)
     uint256 public constant lockPeriod = 365 days; // 12 meses
     
     // Límites de inversión ajustables
-    uint256 public maxInvestment = 1000 ether;
-    uint256 public minInvestment = 0.1 ether;
+    uint256 public maxInvestment = 1000000 ether;
+    uint256 public minInvestment = 1000 ether;
     
     // Seguridad: Time-lock para cambios
     uint256 public constant CHANGE_DELAY = 3 days;
@@ -30,7 +30,7 @@ contract ScolCoinMiningPool {
     address[] public investors;
     bool public isActive = true;
     
-    // Eventos nuevos para límites
+    // Eventos
     event MinInvestmentChanged(uint256 newMin);
     event MaxInvestmentChanged(uint256 newMax);
     event Invested(address indexed investor, uint256 amount);
@@ -84,8 +84,6 @@ contract ScolCoinMiningPool {
         emit MaxInvestmentChanged(newMax);
     }
 
-
-    // Función para invertir con todas las validaciones
     function invest() external payable contractIsActive noReentrant validInvestmentAmount {
         require(investments[msg.sender].amount == 0, "SCOL: Inversion existente");
         
@@ -99,7 +97,6 @@ contract ScolCoinMiningPool {
         emit Invested(msg.sender, msg.value);
     }
 
-    // Retiro seguro con prevención de reentrancy
     function withdraw() external contractIsActive noReentrant {
         Investment storage userInvestment = investments[msg.sender];
         require(userInvestment.amount > 0, "SCOL: Sin inversion");
@@ -118,7 +115,6 @@ contract ScolCoinMiningPool {
         emit Withdrawn(msg.sender, userInvestment.amount, profit);
     }
 
-    // Cambio seguro de tasa con time-lock
     function proposeMiningRateChange(uint256 newRate) external onlyOwner {
         require(newRate > 0 && newRate <= 50, "SCOL: Tasa invalida (1-50%)");
         pendingMiningRate = newRate;
@@ -136,7 +132,6 @@ contract ScolCoinMiningPool {
         emit MiningRateChanged(miningRate);
     }
 
-    // Función de emergencia con distribución segura
     function killContract() external onlyOwner contractIsActive noReentrant {
         isActive = false;
         
@@ -156,7 +151,6 @@ contract ScolCoinMiningPool {
             }
         }
         
-        // Enviar saldo restante al owner
         uint256 remainingBalance = address(this).balance;
         if (remainingBalance > 0) {
             (bool success, ) = owner.call{value: remainingBalance}("");
@@ -166,14 +160,12 @@ contract ScolCoinMiningPool {
         emit ContractKilled();
     }
 
-    // Transferencia segura de ownership
     function transferOwnership(address newOwner) external onlyOwner {
         require(newOwner != address(0), "SCOL: Owner invalido");
         owner = newOwner;
         emit OwnershipTransferred(newOwner);
     }
 
-    // Consultas
     function getRemainingTime(address investor) external view returns (uint256) {
         Investment memory userInvestment = investments[investor];
         if (userInvestment.amount == 0 || userInvestment.withdrawn) return 0;
@@ -198,18 +190,7 @@ contract ScolCoinMiningPool {
         return (investment.amount, investment.startTime, investment.withdrawn);
     }
 
-    // Función para recibir donaciones
-    receive() external payable contractIsActive {
-        emit DonationReceived(msg.sender, msg.value);
-    }
-
-    // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.18;
-
-contract ScolCoinMiningPool {
-    // ... (todo el código anterior permanece igual)
-
-    // NUEVA FUNCIÓN PARA ADMIN
+    // Nuevas funciones para admin
     function getRequiredContractBalance() external view onlyOwner returns (uint256) {
         uint256 totalInvestments;
         
@@ -220,15 +201,16 @@ contract ScolCoinMiningPool {
             }
         }
         
-        // Sumamos el 10% de ganancia requerida
         return totalInvestments + (totalInvestments * miningRate) / 100;
     }
 
-    // FUNCIÓN ADICIONAL RECOMENDADA (para comparación fácil)
     function getBalanceDeficit() external view onlyOwner returns (int256) {
         uint256 required = this.getRequiredContractBalance();
         uint256 current = address(this).balance;
         return int256(required) - int256(current);
     }
-}
+
+    receive() external payable contractIsActive {
+        emit DonationReceived(msg.sender, msg.value);
+    }
 }
