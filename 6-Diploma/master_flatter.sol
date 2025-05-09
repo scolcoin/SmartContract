@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // pragma solidity 0.8.18; Op 5000 
 // File: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.5.0/contracts/utils/Strings.sol
-
+// direccion: 0xF1BA3EF8eDf92f30431F5A9E58873e8A897DE3a0
 
 // OpenZeppelin Contracts v4.4.1 (utils/Strings.sol)
 
@@ -1483,7 +1483,7 @@ pragma solidity ^0.8.0;
 
 
 // Contrato principal para gestionar diplomas
-contract DiplomaMaster is ERC721, Ownable {
+contract MasterBlockchain is ERC721, Ownable {
     // Uso de la librería EnumerableSet para conjuntos de direcciones
     using EnumerableSet for EnumerableSet.AddressSet;
 
